@@ -22,11 +22,6 @@ class ElecMeterInfoController {
   async find(ctx, next) {
     const data = await ElecMeterInfo.find()
     ctx.response.body = data.join('\n')
-    // log.info('find', ctx.request.body)
-    console.log(
-      'ElecMeterInfoController -> find -> ctx.request.body',
-      ctx.request.body
-    )
     next()
   }
 }
