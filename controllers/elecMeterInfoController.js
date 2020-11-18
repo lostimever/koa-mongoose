@@ -1,28 +1,39 @@
 const ElecMeterInfo = require('../models/ElecMeaterInfo')
+const { SUCCESS } = require('../utils/resultCode')
 
 class ElecMeterInfoController {
-  async add(ctx, next) {
-    // ctx.verifyParams({
-    //   date: { type: 'string', required: true },
-    //   list: { type: 'string', require: true },
+  async add(ctx, params) {
+    // return await new Promise((resolve, reject) => {
+    //   resolve(ElecMeterInfo(params).save())
     // })
+    //   .then(res => res)
+    //   .catch(err => err)
 
-    await new Promise((resolve, reject) => {
-      resolve(new ElecMeterInfo(ctx.request.body).save())
-    })
-      .then(res => {
-        ctx.response.body = res
-        next()
-      })
-      .catch(err => {
-        ctx.throw(500, err)
-      })
+    return await ElecMeterInfo(params).save()
   }
 
-  async find(ctx, next) {
-    const data = await ElecMeterInfo.find()
-    ctx.response.body = data.join('\n')
-    next()
+  async find(ctx, params) {
+    const data = await ElecMeterInfo.find(params)
+    return data
+  }
+
+  async findOne(ctx, params) {
+    const data = await ElecMeterInfo.findOne(params)
+    return data
+  }
+  async findById(ctx, id) {
+    const data = await ElecMeterInfo.findById(id)
+    return data
+  }
+  async updated(ctx, params) {
+    return await new Promise((resolve, reject) => {
+      resolve(ElecMeterInfo.updateOne(params))
+    })
+      .then(res => res)
+      .catch(err => {
+        console.log('ElecMeterInfoController -> updated -> err', err)
+        return err
+      })
   }
 }
 

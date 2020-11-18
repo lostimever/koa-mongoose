@@ -11,6 +11,7 @@ const options = {
 }
 
 mongoose.set('useCreateIndex', true)
+mongoose.set('useFindAndModify', false)
 mongoose
   .connect(DB_ADDRESS, options)
   .then(() => {

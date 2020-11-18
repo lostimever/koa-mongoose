@@ -5,10 +5,11 @@ class ErrorModel {
     this.statusCode = statusCode
   }
   throwErr(ctx) {
-    ctx.throw(this.statusCode, this.msg, {
-      code: this.code,
-      flag: 'ErrorModel',
-    })
+    // ctx.throw(this.statusCode, this.msg, {
+    //   code: this.code,
+    //   flag: 'ErrorModel',
+    // })
+    ctx.body = this
   }
 }
 
