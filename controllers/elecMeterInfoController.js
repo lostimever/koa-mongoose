@@ -1,5 +1,5 @@
 const ElecMeterInfo = require('../models/ElecMeaterInfo')
-const { SUCCESS } = require('../utils/resultCode')
+// const { SUCCESS } = require('../utils/resultCode')
 
 class ElecMeterInfoController {
   async add(ctx, params) {
@@ -13,7 +13,14 @@ class ElecMeterInfoController {
   }
 
   async find(ctx, params) {
-    const data = await ElecMeterInfo.find(params)
+    const param = Object.assign(params, {})
+    delete param.pageIndex
+    delete param.pageSize
+    console.log('ElecMeterInfoController -> find -> params', params.pageSize)
+    const data = await ElecMeterInfo.find(param)
+      // .skip((Number(params.pageIndex) - 1) * Number(params.pageSize))
+      .limit(Number(params.pageSize))
+      .sort({ _id: -1 })
     return data
   }
 
