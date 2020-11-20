@@ -13,15 +13,29 @@ class ElecMeterInfoController {
   }
 
   async find(ctx, params) {
-    const param = Object.assign(params, {})
+    const param = Object.assign({}, params)
     delete param.pageIndex
     delete param.pageSize
-    console.log('ElecMeterInfoController -> find -> params', params.pageSize)
-    const data = await ElecMeterInfo.find(param)
-      // .skip((Number(params.pageIndex) - 1) * Number(params.pageSize))
+
+    const _filter = {
+      $or: [],
+    }
+    for (const key in param) {
+      if (key === 'meaternum' || key === 'manufacturer') {
+        _filter.$or.push({
+          [key]: { $regex: param[key] },
+        })
+      } else if (param[key] !== '') {
+        _filter[key] = param[key]
+      }
+    }
+
+    const totalCount = await ElecMeterInfo.find(_filter).countDocuments()
+    const data = await ElecMeterInfo.find(_filter)
+      .skip((Number(params.pageIndex) - 1) * Number(params.pageSize))
       .limit(Number(params.pageSize))
       .sort({ _id: -1 })
-    return data
+    return { data, totalCount }
   }
 
   async findOne(ctx, params) {

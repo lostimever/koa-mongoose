@@ -72,7 +72,7 @@ class ElecMeterInfoService {
   async delete(ctx, next) {
     const params = {
       ...ctx.request.body,
-      showflag: 2,
+      showflag: 0,
     }
 
     if (!params.hasOwnProperty('_id')) {
