@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "debug": "nodemon --inspect ./bin/www",
-    "dev": "nodemon ./bin/www"
+    "dev": "nodemon ./bin/www",
+    "pro": "pm2 start ecosystem.config.js --env pro"
   },
   "dependencies": {
     "@koa/cors": "^3.1.0",

@@ -6,7 +6,7 @@ const options = {
   dbName: 'dmsmarket',
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  user: 'root',
+  user: 'admin',
   pass: 'root',
 }
 

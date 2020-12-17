@@ -5,5 +5,7 @@ const router = new Router({
 
 const elecMeterInfo = require('./elecMeterInfo')
 router.use('/elecMeterInfo', elecMeterInfo)
+const dictionary = require('./dictionary')
+router.use('/dictionary', dictionary)
 
 module.exports = router
