@@ -25,4 +25,4 @@ script:
   - docker build -t lostimever/koa-mongoose:latest .
   - docker push lostimever/koa-mongoose:latest
 after_success:
-  - ssh -o "StrictHostKeyChecking no" -p $server_port travis@$server_ip "cd /project/dockerfiles/koa-mongoose;docker-compose pull info;docker-compose stop info;docker-compose rm info;docker-compose up -d info;exit"
+  - ssh -o "StrictHostKeyChecking no" -p $server_port travis@$server_ip "cd /project/dockerfiles/koa-mongoose;docker-compose pull info;docker-compose stop info;docker-compose rm -f info;docker-compose up -d info;exit"
