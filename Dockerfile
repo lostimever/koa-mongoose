@@ -7,6 +7,6 @@ RUN npm install pm2 -g
 RUN npm install
 EXPOSE 8088
 
-# CMD ["npm", "pro"]
-ENTRYPOINT ["npm", "run"]
-CMD ["pro"]
+CMD ["pm2-runtime", "process.yml"]
+# ENTRYPOINT ["npm", "run"]
+# CMD ["pro"]

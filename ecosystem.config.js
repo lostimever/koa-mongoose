@@ -3,7 +3,7 @@ module.exports = {
     {
       name: 'koa-mongoose',
       script: './bin/www',
-
+      exec_mode: 'cluster',
       // Options reference: https://pm2.io/doc/en/runtime/reference/ecosystem-file/
       args: 'one two',
       instances: 1,
