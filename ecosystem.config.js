@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: 'API',
+      name: 'koa-mongoose',
       script: './bin/www',
 
       // Options reference: https://pm2.io/doc/en/runtime/reference/ecosystem-file/
