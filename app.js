@@ -6,7 +6,7 @@ const log4js = require('log4js')
 const cors = require('@koa/cors')
 const { CORS, LOGINFO } = require('./utils/config')
 const router = require('./routers/index')
-const { loggerMiddleware } = require('./middlewares/logger')
+const { loggerMiddleware } = require('./middleWares/logger')
 
 const app = new Koa()
 app.use(serve('./assets'))
