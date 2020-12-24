@@ -1,7 +1,8 @@
 const mongoose = require('mongoose')
 const { logger } = require('../middleWares/logger')
 
-const DB_ADDRESS = 'mongodb://95.169.18.94:27017'
+// const DB_ADDRESS = 'mongodb://95.169.18.94:27017'
+const DB_ADDRESS = 'mongodb://127.0.0.1:27017'
 const options = {
   dbName: 'dmsmarket',
   useNewUrlParser: true,

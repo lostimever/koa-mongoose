@@ -11,24 +11,8 @@ const {
 const { getErrMessage } = require('../utils/utils')
 
 class DictionaryService {
-  async add(ctx, next) {
-    const params = {
-      ...ctx.request.body,
-    }
-    await new Promise(resolve => {
-      resolve(dictionaryController.add(ctx, params))
-    })
-      .then(res => {
-        SUCCESS(ctx, res)
-      })
-      .catch(err => {
-        PARAM_IS_BLANK(ctx, getErrMessage(err))
-      })
-    next()
-  }
-
   async find(ctx, next) {
-    const { data } = await dictionaryController.find(ctx)
+    const data = await dictionaryController.find(ctx)
     const resData = {}
     data.forEach(ele => {
       if (!resData.hasOwnProperty(ele.type)) {

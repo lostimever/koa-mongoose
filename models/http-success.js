@@ -1,10 +1,10 @@
 class SuccessModel {
-  constructor(resultCode, msg, { data, totalCount }) {
+  constructor(resultCode, msg, data) {
     this.resultCode = resultCode || 200
     this.msg = msg || '操作成功'
     if (data) {
-      this.data = data
-      this.totalCount = totalCount
+      this.data = data.data
+      this.totalCount = data.totalCount
     }
   }
   success(ctx) {

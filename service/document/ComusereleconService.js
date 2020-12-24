@@ -1,31 +1,28 @@
-// const ElecMeterInfo = require('../models/ElecMeaterInfo')
-const elecMeterInfoController = require('../controllers/elecMeterInfoController')
+const ComusereleconController = require('../../controllers/document/ComusereleconController')
 const {
   SUCCESS,
   USER_NO_PERMISSION,
   USER_ACCOUNT_NOT_EXIST,
   USER_ACCOUNT_ALREADY_EXIST,
   PARAM_IS_BLANK,
-} = require('../utils/resultCode')
+} = require('../../utils/resultCode')
 
-const { getErrMessage } = require('../utils/utils')
+const { getErrMessage } = require('../../utils/utils')
 
-class ElecMeterInfoService {
+class ComusereleconService {
   async add(ctx, next) {
     const params = {
       ...ctx.request.body,
     }
-    const selecData = await elecMeterInfoController.findOne(ctx, {
-      meaternum: params.meaternum,
+    const selecData = await ComusereleconController.findOne(ctx, {
+      elecnum: params.elecnum,
     })
     if (selecData !== null) {
-      await USER_ACCOUNT_ALREADY_EXIST(ctx, '电表已存在！')
+      await USER_ACCOUNT_ALREADY_EXIST(ctx, '用户已存在！')
       next()
       return
     }
-    await new Promise(resolve => {
-      resolve(elecMeterInfoController.add(ctx, params))
-    })
+    await ComusereleconController.add(ctx, params)
       .then(res => {
         SUCCESS(ctx, res)
       })
@@ -40,7 +37,7 @@ class ElecMeterInfoService {
       ...ctx.query,
       showflag: 1,
     }
-    const data = await elecMeterInfoController.find(ctx, params)
+    const data = await ComusereleconController.find(ctx, params)
     await SUCCESS(ctx, data)
     next()
   }
@@ -49,18 +46,16 @@ class ElecMeterInfoService {
     const params = {
       ...ctx.request.body,
     }
-    const selecData = await elecMeterInfoController.findById(ctx, params._id)
+    const selecData = await ComusereleconController.findById(ctx, params._id)
     if (selecData === null) {
-      await USER_ACCOUNT_NOT_EXIST(ctx, '电表不存在！')
+      await USER_ACCOUNT_NOT_EXIST(ctx, '用户不存在！')
       next()
       return
     }
 
-    await new Promise(resolve => {
-      resolve(elecMeterInfoController.updated(ctx, params))
-    })
+    await ComusereleconController.updated(ctx, params)
       .then(res => {
-        SUCCESS(ctx, {})
+        SUCCESS(ctx, res)
       })
       .catch(err => {
         PARAM_IS_BLANK(ctx, getErrMessage(err))
@@ -71,24 +66,27 @@ class ElecMeterInfoService {
 
   async delete(ctx, next) {
     const params = {
-      ...ctx.request.body,
+      ...ctx.query,
       showflag: 0,
     }
+    console.log(
+      '🚀 ~ file: ComusereleconService.js ~ line 73 ~ ComusereleconService ~ delete ~ params',
+      params
+    )
 
     if (!params.hasOwnProperty('_id')) {
       await PARAM_IS_BLANK(ctx)
       next()
       return
     }
-    const selecData = await elecMeterInfoController.findById(ctx, params._id)
+    const selecData = await ComusereleconController.findById(ctx, params._id)
     if (selecData === null) {
-      await USER_ACCOUNT_NOT_EXIST(ctx, '电表不存在！')
+      await USER_ACCOUNT_NOT_EXIST(ctx, '用户不存在！')
       next()
       return
     }
-    await new Promise(resolve => {
-      resolve(elecMeterInfoController.updated(ctx, params))
-    })
+
+    await ComusereleconController.updated(ctx, params)
       .then(res => {
         SUCCESS(ctx, { msg: '删除成功' })
       })
@@ -100,4 +98,4 @@ class ElecMeterInfoService {
   }
 }
 
-module.exports = new ElecMeterInfoService()
+module.exports = new ComusereleconService()
