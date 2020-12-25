@@ -28,10 +28,6 @@ class ElecMeterInfoService {
         SUCCESS(ctx, res)
       })
       .catch(err => {
-        console.log(
-          '🚀 ~ file: elecMeterInfoService.js ~ line 31 ~ ElecMeterInfoService ~ add ~ err',
-          err
-        )
         PARAM_IS_BLANK(ctx, getErrMessage(err))
       })
     next()

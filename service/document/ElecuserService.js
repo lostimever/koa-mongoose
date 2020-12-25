@@ -1,4 +1,5 @@
 const ElecuserController = require('../../controllers/document/ElecuserController')
+const EelecMeterInfoController = require('../../controllers/document/elecMeterInfoController')
 const {
   SUCCESS,
   USER_NO_PERMISSION,
@@ -18,7 +19,16 @@ class ComusereleconService {
       elecnum: params.elecnum,
     })
     if (selecData !== null) {
-      await USER_ACCOUNT_ALREADY_EXIST(ctx, '用户已存在！')
+      await USER_ACCOUNT_ALREADY_EXIST(ctx, '电表已被绑定！')
+      next()
+      return
+    }
+    const meterData = await EelecMeterInfoController.findOne(ctx, {
+      meaternum: params.meaternum,
+    })
+
+    if (meterData === null) {
+      await USER_ACCOUNT_NOT_EXIST(ctx, '电表不存在！')
       next()
       return
     }
