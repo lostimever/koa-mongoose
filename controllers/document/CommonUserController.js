@@ -1,18 +1,10 @@
-const Comuserelecon = require('../../models/document/Comuserelecon')
+const CommonUser = require('../../models/document/CommonUser')
+// const { SUCCESS } = require('../utils/resultCode')
 
-class ComusereleconController {
+class CommonUserController {
+  //Returns undefined if used with callback or a Promise otherwise
   async add(ctx, params) {
-    await new Promise((resolve, reject) => {
-      Comuserelecon(params).save((err, res) => {
-        if (err) {
-          reject(err)
-        } else {
-          resolve(res)
-        }
-      })
-    })
-      .then(res => res)
-      .catch(err => err)
+    return await CommonUser(params).save()
   }
 
   async find(ctx, params) {
@@ -22,7 +14,7 @@ class ComusereleconController {
 
     const _filter = {}
     //参数列表
-    const paramsArr = ['elecnum', 'companyname']
+    const paramsArr = ['meaternum', 'manufacturer']
     for (const key in param) {
       if (param[key] !== '') {
         if (paramsArr.includes(key)) {
@@ -43,8 +35,8 @@ class ComusereleconController {
       }
     }
 
-    const totalCount = await Comuserelecon.find(_filter).countDocuments()
-    const data = await Comuserelecon.find(_filter)
+    const totalCount = await CommonUser.find(_filter).countDocuments()
+    const data = await CommonUser.find(_filter)
       .skip((Number(params.pageIndex) - 1) * Number(params.pageSize))
       .limit(Number(params.pageSize))
       .sort({ _id: -1 })
@@ -53,11 +45,11 @@ class ComusereleconController {
   }
 
   async findOne(ctx, params) {
-    const data = await Comuserelecon.findOne(params)
+    const data = await CommonUser.findOne(params)
     return data
   }
   async findById(ctx, id) {
-    const data = await Comuserelecon.findById(id)
+    const data = await CommonUser.findById(id)
     return data
   }
   async updated(ctx, params) {
@@ -65,7 +57,7 @@ class ComusereleconController {
     delete paramsDoc._id
 
     await new Promise((resolve, reject) => {
-      Comuserelecon.updateOne({ _id: params._id }, paramsDoc, (err, res) => {
+      CommonUser.updateOne({ _id: params._id }, paramsDoc, (err, res) => {
         if (err) {
           reject(err)
         } else {
@@ -78,4 +70,4 @@ class ComusereleconController {
   }
 }
 
-module.exports = new ComusereleconController()
+module.exports = new CommonUserController()

@@ -1,13 +1,13 @@
-const ComusereleconController = require('../../controllers/document/ComusereleconController')
+const ComusereleconController = require('../controllers/ComusereleconController')
 const {
   SUCCESS,
   USER_NO_PERMISSION,
   USER_ACCOUNT_NOT_EXIST,
   USER_ACCOUNT_ALREADY_EXIST,
   PARAM_IS_BLANK,
-} = require('../../utils/resultCode')
+} = require('../utils/resultCode')
 
-const { getErrMessage } = require('../../utils/utils')
+const { getErrMessage } = require('../utils/utils')
 
 class ComusereleconService {
   async add(ctx, next) {

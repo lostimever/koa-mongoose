@@ -1,6 +1,6 @@
 const Router = require('@koa/router')
 const router = new Router()
-const ComusereleconService = require('../../service/document/ComusereleconService')
+const ComusereleconService = require('../service/ComusereleconService')
 // router.get('/', (ctx, next) => {
 //   ctx.body = 'index'
 //   // next()函数，当执行next将会从这里主动把执行权交给下一个中间件，也就是下一个路由

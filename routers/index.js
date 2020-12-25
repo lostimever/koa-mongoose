@@ -5,10 +5,12 @@ const router = new Router({
 
 const elecMeterInfo = require('./document/elecMeterInfo')
 router.use('/elecMeterInfo', elecMeterInfo)
-const comuserelecon = require('./document/comuserelecon')
-router.use('/comuserelecon', comuserelecon)
 const elecuser = require('./document/elecuser')
 router.use('/elecuser', elecuser)
+const commonuser = require('./document/commonuser')
+router.use('/commonuser', commonuser)
+const comuserelecon = require('./comuserelecon')
+router.use('/comuserelecon', comuserelecon)
 const dictionary = require('./dictionary')
 router.use('/dictionary', dictionary)
 

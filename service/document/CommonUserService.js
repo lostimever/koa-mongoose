@@ -1,4 +1,4 @@
-const ElecuserController = require('../../controllers/document/ElecuserController')
+const CommonUserController = require('../../controllers/document/CommonUserController')
 const EelecMeterInfoController = require('../../controllers/document/elecMeterInfoController')
 const {
   SUCCESS,
@@ -28,7 +28,7 @@ class ComusereleconService {
       return
     }
 
-    await ElecuserController.add(ctx, params)
+    await CommonUserController.add(ctx, params)
       .then(res => {
         SUCCESS(ctx, res)
       })
@@ -44,7 +44,7 @@ class ComusereleconService {
     })
   }
   async findEleUser(ctx, params) {
-    return await ElecuserController.findOne(ctx, {
+    return await CommonUserController.findOne(ctx, {
       elecnum: params.elecnum,
     })
   }
@@ -54,7 +54,7 @@ class ComusereleconService {
       ...ctx.query,
       showflag: 1,
     }
-    const data = await ElecuserController.find(ctx, params)
+    const data = await CommonUserController.find(ctx, params)
     await SUCCESS(ctx, data)
     next()
   }
@@ -63,14 +63,14 @@ class ComusereleconService {
     const params = {
       ...ctx.request.body,
     }
-    const selecData = await ElecuserController.findById(ctx, params._id)
+    const selecData = await CommonUserController.findById(ctx, params._id)
     if (selecData === null) {
       await USER_ACCOUNT_NOT_EXIST(ctx, '用户不存在！')
       next()
       return
     }
 
-    await ElecuserController.updated(ctx, params)
+    await CommonUserController.updated(ctx, params)
       .then(res => {
         SUCCESS(ctx, res)
       })
@@ -96,14 +96,14 @@ class ComusereleconService {
       next()
       return
     }
-    const selecData = await ElecuserController.findById(ctx, params._id)
+    const selecData = await CommonUserController.findById(ctx, params._id)
     if (selecData === null) {
       await USER_ACCOUNT_NOT_EXIST(ctx, '用户不存在！')
       next()
       return
     }
 
-    await ElecuserController.updated(ctx, params)
+    await CommonUserController.updated(ctx, params)
       .then(res => {
         SUCCESS(ctx, { msg: '删除成功' })
       })

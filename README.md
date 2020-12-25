@@ -40,3 +40,5 @@ db.collection.update(criteria, objNew, upsert, multi)
 # upsert：如果不存在update的记录，是否插入objNew这个新的文档，true为插入，默认为false，不插入。
 # multi：默认是false，只更新找到的第一条记录。如果为true，把按条件查询出来的记录全部更新。
 ```
+
+## [关于kswapd0 CPU占用率高的问题](https://blog.csdn.net/jzz601264258/article/details/105850816)

@@ -16,19 +16,19 @@ let ElecuserSchema = new Schema({
   contactemail: { type: String }, //联系人邮箱
   contacttel: { type: String }, //办公电话
   phone: { type: Number, required: [true, '手机不能为空'] }, //手机
-  ecat: { type: Number }, //用电类别
+  ecat: { type: Number, default: 1 }, //用电类别
   usercomregaddr: { type: String }, //企业注册地址
-  paytype: { type: Number }, //缴费方式，1为预缴费
+  paytype: { type: Number, default: 1 }, //缴费方式，1为预缴费
   elecaddr: { type: String, required: [true, '用电地址不能为空'] }, //用电地址
   contractaddr: { type: String }, //通讯地址
-  balance: { type: String }, //账户余额
-  redpacket: { type: String }, //红包余额
-  bill: { type: String }, //待缴金额=电费+滞纳金+原待缴金额
-  eleccharge: { type: String }, //电费
-  integral: { type: String }, //积分
-  calcplay: { type: Number }, //电费计算方式
+  balance: { type: String, default: 0 }, //账户余额
+  redpacket: { type: String, default: 0 }, //红包余额
+  bill: { type: String, default: 0 }, //待缴金额=电费+滞纳金+原待缴金额
+  eleccharge: { type: String, default: 0 }, //电费
+  integral: { type: String, default: 0 }, //积分
+  calcplay: { type: Number, default: 1 }, //电费计算方式
   showflag: { type: Number, required: true, default: 1 },
-  querypwd: { type: String }, //查询密码
+  querypwd: { type: String, default: 1234 }, //查询密码
   ctime: { type: Date, default: Date.now() },
   version: { type: Number, default: 1 }, //乐观锁修改金额
   balancelevel: { type: Number, default: 0 }, //
