@@ -14,4 +14,6 @@ router.use('/comuserelecon', comuserelecon)
 const dictionary = require('./dictionary')
 router.use('/dictionary', dictionary)
 
+const upload = require('./upload')
+router.use('/file', upload)
 module.exports = router

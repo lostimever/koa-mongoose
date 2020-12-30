@@ -1,4 +1,4 @@
-const ComusereleconController = require('../controllers/ComusereleconController')
+const ComusereleconController = require('../controller/ComusereleconController')
 const {
   SUCCESS,
   USER_NO_PERMISSION,

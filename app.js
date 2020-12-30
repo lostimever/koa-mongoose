@@ -1,16 +1,23 @@
 const Koa = require('koa')
-const serve = require('koa-static')
+const static = require('koa-static')
 require('./utils/db')
-const bodyparser = require('koa-bodyparser')
 const log4js = require('log4js')
 const cors = require('@koa/cors')
 const { CORS, LOGINFO } = require('./utils/config')
 const router = require('./routers/index')
 const { loggerMiddleware } = require('./middleWares/logger')
+const koaBody = require('koa-body')
 
 const app = new Koa()
-app.use(serve('./assets'))
-app.use(bodyparser())
+app.use(static('./assets'))
+app.use(
+  koaBody({
+    multipart: true,
+    formidable: {
+      maxFileSize: 200 * 1024 * 1024,
+    },
+  })
+)
 app.use(cors(CORS))
 app.use(router.routes()).use(router.allowedMethods())
 app.use(loggerMiddleware)

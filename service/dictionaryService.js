@@ -1,5 +1,5 @@
 // const ElecMeterInfo = require('../models/ElecMeaterInfo')
-const dictionaryController = require('../controllers/dictionaryController')
+const dictionaryController = require('../controller/dictionaryController')
 const {
   SUCCESS,
   USER_NO_PERMISSION,

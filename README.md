@@ -42,3 +42,23 @@ db.collection.update(criteria, objNew, upsert, multi)
 ```
 
 ## [关于kswapd0 CPU占用率高的问题](https://blog.csdn.net/jzz601264258/article/details/105850816)
+
+## koa-body 和 koa-bodyparser不要同时用
+
+两个同时用会出现接收不到`post`请求的问题，使用`koa-body`即可
+```javascript
+app.use(
+  koaBody({
+    multipart: true, //开启文件上传
+    formidable: {
+      maxFileSize: 200 * 1024 * 1024,
+    },
+  })
+)
+```
+
+## TODO
+
+- [x] 文件上传
+- [ ] 登录
+- [ ] 多表联合查询

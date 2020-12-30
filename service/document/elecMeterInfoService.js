@@ -1,4 +1,4 @@
-const elecMeterInfoController = require('../../controllers/document/elecMeterInfoController')
+const elecMeterInfoController = require('../../controller/document/ElecMeterInfoController')
 const {
   SUCCESS,
   USER_NO_PERMISSION,

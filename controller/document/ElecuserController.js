@@ -42,10 +42,6 @@ class ElecuserController {
         }
       }
     }
-    console.log(
-      '🚀 ~ file: ElecuserController.js ~ line 42 ~ ElecuserController ~ find ~ _filter',
-      _filter
-    )
 
     const totalCount = await Elecuser.find(_filter).countDocuments()
     const data = await Elecuser.find(_filter)

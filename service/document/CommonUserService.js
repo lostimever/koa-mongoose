@@ -1,5 +1,5 @@
-const CommonUserController = require('../../controllers/document/CommonUserController')
-const EelecMeterInfoController = require('../../controllers/document/elecMeterInfoController')
+const CommonUserController = require('../../controller/document/CommonUserController')
+const EelecMeterInfoController = require('../../controller/document/ElecMeterInfoController')
 const {
   SUCCESS,
   USER_NO_PERMISSION,
@@ -11,18 +11,18 @@ const {
 const { getErrMessage } = require('../../utils/utils')
 
 class ComusereleconService {
-  async add(ctx, next) {
+  add = async (ctx, next) => {
     const params = {
       ...ctx.request.body,
     }
 
-    if (this.findEleUser(ctx, params) !== null) {
+    if ((await this.findComUser(ctx, params)) !== null) {
       await USER_ACCOUNT_ALREADY_EXIST(ctx, '电表已被绑定！')
       next()
       return
     }
 
-    if (this.findElemaster(ctx, params) === null) {
+    if ((await this.findElemaster(ctx, params)) === null) {
       await USER_ACCOUNT_NOT_EXIST(ctx, '电表不存在！')
       next()
       return
@@ -38,18 +38,7 @@ class ComusereleconService {
     next()
   }
 
-  async findElemaster(ctx, params) {
-    return await EelecMeterInfoController.findOne(ctx, {
-      meaternum: params.meaternum,
-    })
-  }
-  async findEleUser(ctx, params) {
-    return await CommonUserController.findOne(ctx, {
-      elecnum: params.elecnum,
-    })
-  }
-
-  async find(ctx, next) {
+  find = async (ctx, next) => {
     const params = {
       ...ctx.query,
       showflag: 1,
@@ -59,13 +48,29 @@ class ComusereleconService {
     next()
   }
 
-  async update(ctx, next) {
+  update = async (ctx, next) => {
     const params = {
       ...ctx.request.body,
     }
-    const selecData = await CommonUserController.findById(ctx, params._id)
-    if (selecData === null) {
+
+    if ((await this.findElemaster(ctx, params)) === null) {
+      await USER_ACCOUNT_NOT_EXIST(ctx, '电表不存在！')
+      next()
+      return
+    }
+
+    if ((await this.findUserById(ctx, params)) === null) {
       await USER_ACCOUNT_NOT_EXIST(ctx, '用户不存在！')
+      next()
+      return
+    }
+
+    const userData = await this.findComUser(ctx, params)
+    if (
+      userData.meaternum === params.meaternum &&
+      String(userData.id) !== String(params._id)
+    ) {
+      await USER_ACCOUNT_ALREADY_EXIST(ctx, '电表已被绑定！')
       next()
       return
     }
@@ -81,23 +86,18 @@ class ComusereleconService {
     next()
   }
 
-  async delete(ctx, next) {
+  delete = async (ctx, next) => {
     const params = {
       ...ctx.query,
       showflag: 0,
     }
-    console.log(
-      '🚀 ~ file: ComusereleconService.js ~ line 73 ~ ComusereleconService ~ delete ~ params',
-      params
-    )
 
     if (!params.hasOwnProperty('_id')) {
       await PARAM_IS_BLANK(ctx)
       next()
       return
     }
-    const selecData = await CommonUserController.findById(ctx, params._id)
-    if (selecData === null) {
+    if ((await this.findUserById(ctx, params)) === null) {
       await USER_ACCOUNT_NOT_EXIST(ctx, '用户不存在！')
       next()
       return
@@ -112,6 +112,30 @@ class ComusereleconService {
       })
 
     next()
+  }
+
+  findElemaster = async (ctx, params) => {
+    const data = await EelecMeterInfoController.findOne(ctx, {
+      meaternum: params.meaternum,
+      showflag: 1,
+    })
+    return data
+  }
+  findComUser = async (ctx, params) => {
+    const data = await CommonUserController.findOne(ctx, {
+      elecnum: params.elecnum,
+      showflag: 1,
+    })
+
+    return data
+  }
+
+  findUserById = async (ctx, params) => {
+    const data = await CommonUserController.findOne(ctx, {
+      _id: params._id,
+      showflag: 1,
+    })
+    return data
   }
 }
 

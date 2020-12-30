@@ -18,6 +18,7 @@ const CORS = {
 
 const logPath = path.join(__dirname, '../logs/info')
 const LOGINFO = {
+  disableClustering: true, //pm2集群模式下使用log4js
   appenders: {
     console: { type: 'console' },
     dateFile: {
