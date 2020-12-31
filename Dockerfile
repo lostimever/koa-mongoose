@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:12.16.1
 ENV NODE_ENV=production
 ENV HOST 0.0.0.0
 COPY . /project/koa-mongoose
