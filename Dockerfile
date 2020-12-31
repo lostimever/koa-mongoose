@@ -3,7 +3,7 @@ ENV NODE_ENV=production
 ENV HOST 0.0.0.0
 COPY . /project/koa-mongoose
 WORKDIR /project/koa-mongoose
-RUN yarn add pm2 -g
+RUN yarn global add pm2
 RUN yarn install
 EXPOSE 8088
 
