@@ -1,6 +1,6 @@
 const Router = require('@koa/router')
 const router = new Router()
-const ElecMeterInfoService = require('../../service/document/elecMeterInfoService')
+const ElecMeterInfoService = require('../../service/document/ElecMeterInfoService')
 
 router
   .post(`/add`, ElecMeterInfoService.add)
